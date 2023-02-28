@@ -33,20 +33,18 @@ public_users.get('/isbn/:isbn', function (req, res) {
 public_users.get('/author/:author', function (req, res) {
   const { author } = req.params;
 
-  const [book] = books.filter(({ author: _author }) => _author.toLowerCase() === author.toLowerCase());
-  if (!book) return res.status(404).send("book not found");
+  const _books = Object.values(books).filter(({ author: _author }) => _author.toLowerCase() === author.toLowerCase());
+  if (!_books.length) return res.status(404).send("no book found");
 
-  res.send(book);
+  res.send(_books);
 });
 
 // Get all books based on title
 public_users.get('/title/:title', function (req, res) {
   const { title } = req.params;
 
-  const [book] = books.filter(({ title: _title }) => _title.toLowerCase() === title.toLowerCase());
-  if (!book) return res.status(404).send("book not found");
-
-  res.send(book);
+  const _books = Object.values(books).filter(({ title: _title }) => _title.toLowerCase() === title.toLowerCase());
+  res.send(_books);
 });
 
 //  Get book review
